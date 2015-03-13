@@ -53,7 +53,7 @@ module TmxParser
     end
   end
 
-  class BeginPair
+  class Pair
     attr_reader :text, :i
 
     def initialize(i)
@@ -63,19 +63,22 @@ module TmxParser
 
     def receive_text(str)
       @text << str
+    end
+
+    def type
+      raise NotImplementedError
     end
   end
 
-  class EndPair
-    attr_reader :text, :i
-
-    def initialize(i)
-      @i = i
-      @text = ''
+  class BeginPair < Pair
+    def type
+      :begin
     end
+  end
 
-    def receive_text(str)
-      @text << str
+  class EndPair < Pair
+    def type
+      :end
     end
   end
 
