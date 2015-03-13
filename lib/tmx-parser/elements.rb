@@ -21,7 +21,7 @@ module TmxParser
     end
 
     def receive_text(str)
-      @value += str
+      @value << str
     end
   end
 
@@ -49,7 +49,7 @@ module TmxParser
     end
 
     def receive_text(str)
-      @text += str
+      @text << str
     end
   end
 
@@ -62,7 +62,7 @@ module TmxParser
     end
 
     def receive_text(str)
-      @text += str
+      @text << str
     end
   end
 
@@ -75,7 +75,7 @@ module TmxParser
     end
 
     def receive_text(str)
-      @text += str
+      @text << str
     end
   end
 

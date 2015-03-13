@@ -17,5 +17,8 @@ Gem::Specification.new do |s|
 
   s.require_path = 'lib'
   s.files = Dir["{lib,spec}/**/*", "Gemfile", "History.txt", "README.md", "Rakefile", "tmx-parser.gemspec"]
+
   s.add_dependency 'nokogiri', '~> 1.6.0'
+  s.add_development_dependency 'pry-nav', '~> 0.2.0'
+  s.add_development_dependency 'rspec', '~> 3.2.0'
 end
