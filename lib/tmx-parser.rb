@@ -14,7 +14,7 @@ module TmxParser
   autoload :BeginPair,     'tmx-parser/elements'
   autoload :EndPair,       'tmx-parser/elements'
 
-  def self.load(string_or_file_handle)
-    Document.new(string_or_file_handle)
+  def self.load(string_or_file_handle, encoding = Encoding.default_external)
+    Document.new(string_or_file_handle, encoding)
   end
 end
