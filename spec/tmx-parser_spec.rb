@@ -26,6 +26,52 @@ describe TmxParser do
       }
     end
 
+    describe '#copy' do
+      it 'deep copies the tree' do
+        parser.load(document).to_a.tap do |units|
+          original_unit = units.first
+          unit_copy = original_unit.copy
+
+          expect(unit_copy.tuid).to eq(original_unit.tuid)
+          expect(unit_copy.segtype).to eq(original_unit.segtype)
+          expect(unit_copy.variants.size).to eq(original_unit.variants.size)
+
+          unit_copy.properties.each_pair.with_index do |(key, prop_value_copy), idx|
+            original_prop_value = original_unit.properties[key]
+            expect(original_prop_value.value).to eq(prop_value_copy.value)
+          end
+
+          unit_copy.variants.each_with_index do |variant_copy, v_idx|
+            original_variant = original_unit.variants[v_idx]
+            expect(variant_copy.locale).to eq(original_variant.locale)
+
+            variant_copy.elements.each_with_index do |element_copy, e_idx|
+              original_element = original_variant.elements[e_idx]
+              expect(element_copy).to be_a(original_element.class)
+            end
+          end
+        end
+      end
+    end
+
+    describe '#==' do
+      it 'returns true if the objects (even copies) are equivalent' do
+        parser.load(document).to_a.tap do |units|
+          expect(units.first).to eq(units.first.copy)
+        end
+      end
+
+      it 'returns false if the objects are not equivalent' do
+        parser.load(document).to_a.tap do |units|
+          unit = units.first
+          unit_copy = unit.copy
+
+          unit_copy.tuid.replace('foobar')
+          expect(unit).to_not eq(unit_copy)
+        end
+      end
+    end
+
     it 'identifies the tuid and segtype' do
       parser.load(document).to_a.tap do |units|
         expect(units.size).to eq(1)

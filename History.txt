@@ -1,7 +1,11 @@
+== 1.0.0
+
+* Birthday!
+
 == 1.0.1
 
 * Add ability to specify encoding.
 
-== 1.0.0
+== 1.1.0
 
-* Birthday!
+* Add #copy and #== methods to elements.
